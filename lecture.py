@@ -1,6 +1,6 @@
 import matplotlib
 import matplotlib.pyplot as plt
-import seaborn
+import seaborn as seaborn
 import pandas as pd
 
 # 1
@@ -14,6 +14,10 @@ print('Nombre seisme = ', nb_seisme)
 # 3
 noms = seisme.value_counts('pays', ascending=False).head(20)
 print(noms)
+
+# 4
+#sns.load_dataset(noms)
+#sns.boxplot(x="pays", y = "mag", data = )
 
 # 4
 seisme_data = seisme[seisme['pays'].isin(noms.index)]
