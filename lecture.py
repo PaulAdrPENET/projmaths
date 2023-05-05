@@ -11,10 +11,5 @@ nb_seisme = len(seisme)
 print('Nombre seisme = ', nb_seisme)
 
 # 3
-noms = pd.DataFrame()
-
-for pays in seisme["pays"]:
-    noms.set_index = pays
-    noms['pays'] = seisme.count(pays)
-
-print(noms.index)
+noms = seisme.value_counts('pays', ascending=False).head(20)
+print(noms)
