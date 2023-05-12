@@ -1,4 +1,3 @@
-import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as seaborn
 import pandas as pd
@@ -38,6 +37,3 @@ seisme_californie_alaska = list()
 seisme_californie_alaska.append(seisme[(seisme['pays'] == 'Alaska') & (seisme["mag"] <= 2)])
 seisme_californie_alaska.append(seisme[(seisme['pays'] == 'California') & (seisme["mag"] <= 2)])
 print(seisme_californie_alaska)
-
-
-

@@ -12,7 +12,7 @@ print(F)
 F.insert(2, 'm', F['mag'].astype('int32'))
 print(F['m'])
 
-Fdata2 = F[F['mag'] < 5] # data des magnitudes infèrieurs à 5
+Fdata2 = F[F['mag'] < 5]  # data des magnitudes infèrieurs à 5
 # 2
 palette = {
     3: "hotpink",
@@ -28,7 +28,7 @@ fig = px.density_mapbox(Fdata2, lat='lat', lon='lon', z='mag', radius=10,
                         center=dict(lat=0, lon=180), zoom=0,
                         mapbox_style="stamen-terrain")
 fig.update_layout(mapbox_style="outdoors", mapbox_accesstoken=token)
-#fig.show()
+# fig.show()
 
 # Carte avec mag > 5 :
 
@@ -43,4 +43,26 @@ fig2 = px.density_mapbox(F, lat='lat', lon='lon', z='mag', radius=10,
 fig2.update_layout(mapbox_style="outdoors", mapbox_accesstoken=token)
 fig2.add_trace(px.scatter_mapbox(Fdata3, lat='lat', lon='lon', color='m', size='size',
                                  color_discrete_sequence=palette).data[0])
-fig2.show()
+#fig2.show()
+
+
+# carte des séisme façon Minard
+Fdata4 = seisme[3 <= seisme['mag'] <= 8]
+Fdata4.insert(2, 'm', F['mag'].astype('int32'))
+Fdata4.insert(7,'size',(((10 + 10*(Fdata3['mag']-5))**2)**1/2).astype('int32'))
+print(F)
+# a modifié avec scatter_geo pour mettre la palette
+fig3 = px.scatter_geo()
+fig3 = px.density_mapbox(F, lat='lat', lon='lon', z='mag', radius=10,
+                        center=dict(lat=0, lon=180), zoom=0,
+                        mapbox_style="stamen-terrain",)
+fig3.update_layout(mapbox_style="outdoors", mapbox_accesstoken=token)
+fig3.add_trace(px.scatter_mapbox(Fdata3, lat='lat', lon='lon', color='m', size='size',
+                                 color_discrete_sequence=palette).data[0])
+fig3.show()
+
+import plotly.express as px
+Fdata4 = px.data.tips()
+fig = px.pie(Fdata4, values='mag', names='pays')
+fig.show()
+
