@@ -31,7 +31,6 @@ fig.update_layout(mapbox_style="outdoors", mapbox_accesstoken=token)
 # fig.show()
 
 # Carte avec mag > 5 :
-
 # On ajoute à F une colonne avec la taille des points correspondant avec la magnitude
 Fdata3 = seisme[seisme['mag'] >= 5]
 Fdata3.insert(2, 'm', F['mag'].astype('int32'))
@@ -47,22 +46,32 @@ fig2.add_trace(px.scatter_mapbox(Fdata3, lat='lat', lon='lon', color='m', size='
 
 
 # carte des séisme façon Minard
-Fdata4 = seisme[3 <= seisme['mag'] <= 8]
+Fdata4 = seisme[(3 <= seisme['mag'] )]#or seisme['mag'] <= 8)]
 Fdata4.insert(2, 'm', F['mag'].astype('int32'))
 Fdata4.insert(7,'size',(((10 + 10*(Fdata3['mag']-5))**2)**1/2).astype('int32'))
 print(F)
 # a modifié avec scatter_geo pour mettre la palette
-fig3 = px.scatter_geo()
-fig3 = px.density_mapbox(F, lat='lat', lon='lon', z='mag', radius=10,
-                        center=dict(lat=0, lon=180), zoom=0,
-                        mapbox_style="stamen-terrain",)
-fig3.update_layout(mapbox_style="outdoors", mapbox_accesstoken=token)
-fig3.add_trace(px.scatter_mapbox(Fdata3, lat='lat', lon='lon', color='m', size='size',
-                                 color_discrete_sequence=palette).data[0])
-fig3.show()
+fig3 = px.scatter_geo(Fdata4, lat='lat', lon='lon', projection="natural earth")
 
+#fig3 = px.density_mapbox(F, lat='lat', lon='lon', z='mag', radius=10,
+#                        center=dict(lat=0, lon=180), zoom=0,
+#                        mapbox_style="stamen-terrain",)
+fig3.update_layout(showlegend=True, coloraxis_showscale=False, mapbox_accesstoken=token)
+
+# On rajoute les nuages de points par magnitude
+size = 1
+for i in range (3, 9, 1):
+    seismes_i = Fdata4[Fdata4["m"]==i]
+    size = 3
+    # Calcul de taille Magnitude >=5
+    if(i >= 5):
+        size = 10+10*(i-5)
+    fig3.add_scattergeo(lat=seismes_i['lat'], lon=seismes_i['lon'], marker={"color":palette[i], 'size':size, 'opacity':0.5}, name=i)
+
+fig3.show()
+"""
 import plotly.express as px
 Fdata4 = px.data.tips()
 fig = px.pie(Fdata4, values='mag', names='pays')
 fig.show()
-
+"""
