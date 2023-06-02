@@ -27,10 +27,12 @@ plt.xticks(rotation=90)
 plt.show()
 
 # 4b
-seisme_mag = seisme.value_counts('mag', ascending=False).tail(6)
-seisme_mag_data = seisme[seisme['mag'].isin(seisme_mag.index)]
+seisme_max_mag_loc = seisme.groupby('pays')['mag'].idxmax()
+seisme_max_mag_eq = seisme.loc[seisme_max_mag_loc]
+seisme_mag_6 = seisme_max_mag_eq.sort_values('mag', ascending=False).head(6)
+#seisme_mag_data = seisme[seisme['mag'].isin(seisme_mag.index)]
 print("6 lieux du monde qui enregistre la plus forte magnitude: ")
-print(seisme_mag_data[['pays', 'mag']])
+print(seisme_mag_6[['pays', 'mag']])
 
 # 4c
 seisme_californie_alaska = list()
