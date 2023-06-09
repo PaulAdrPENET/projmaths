@@ -58,8 +58,19 @@ fig = px.scatter(data, y='mag', x='profondeur')
 fig.update_layout(title='Magnitude en fonction de la profondeur')
 fig.show()
 
-# Test d'indépendance Khi-deux entre profoneur et magnitude :
-statistique, p_value,tmp1,tmp2, = chi2_contingency(pd.crosstab(data['profondeur'], data['mag']))
-print("Statistique du test Khi-deux : ", statistique)
-print("P_value du test : ", p_value)
 
+#Construction d'un tableau de contingence :
+
+tableau = pd.crosstab(data['profondeur'], data['mag'])
+
+#On applique le test d'indépendance Khi-deux sur le tableau de contingence :
+
+statistique, p_value, _, _ = chi2_contingency(tableau)
+print("Statistique du test Khi-2 : ", statistique)
+print("P-value : ", p_value)
+
+# Calcul de l'odds ratio du tableau de contingence :
+
+odds_ratio = tableau.apply(lambda row: row / row.sum(), axis=1)
+print("Tableau des odds-ratio :")
+print(odds_ratio)
