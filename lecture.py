@@ -26,6 +26,15 @@ seaborn.boxplot(data=seisme_data, x="pays", y='mag', orient="v", dodge=False)
 plt.xticks(rotation=90)
 plt.show()
 
+# Autre analyse sans les petits séismes
+print("Autre analyse des seismes en écartant les séismes superflus")
+seisme_big = seisme[seisme['mag'] >= 4]
+seisme_data = seisme_big[seisme_big['pays'].isin(noms.index)]
+print(seisme_data)
+seaborn.boxplot(data=seisme_data, x="pays", y='mag', orient="v", dodge=False)
+plt.xticks(rotation=90)
+plt.show()
+
 # 4b
 seisme_max_mag_loc = seisme.groupby('pays')['mag'].idxmax()
 seisme_max_mag_eq = seisme.loc[seisme_max_mag_loc]
