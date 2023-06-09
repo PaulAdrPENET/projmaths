@@ -90,5 +90,5 @@ fig.show()
 # Nombre de séisme par pays:
 Fdata5 = seisme[['pays', 'mag']]
 fig = px.pie(Fdata5, names='pays')
-#fig.show()
+fig.show()
 

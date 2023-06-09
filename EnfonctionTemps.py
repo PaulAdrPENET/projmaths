@@ -11,7 +11,7 @@ fdata1 = seisme
 fdata1['instant'] = pd.to_datetime(fdata1['instant'])  # on met en datetime
 fdata1 = fdata1.sort_values('instant')
 fig = go.Figure()
-
+fig.show()
 
 # Tracer les tremblements de terre sur la carte à chaque instant
 """fig.add_trace(go.Scattermapbox(
@@ -44,11 +44,12 @@ fig.update_layout(
     yaxis=dict(title='Magnitude')
 )
 
-# Afficher la figure
-fig.show()
+#fig.show()
 
-# Tester l'indépendance entre les colonnes 'mag' et 'profondeur'
+"""
+# Indépendance des colonnes 'mag' et 'profondeur'
 cross_tab = pd.crosstab(fdata1['mag'], fdata1['profondeur'])
 chi2, p, _, _ = chi2_contingency(cross_tab)
 print(f"Statistique de test chi2: {chi2}")
 print(f"Valeur p: {p}")
+"""

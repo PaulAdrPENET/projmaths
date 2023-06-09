@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as seaborn
 import pandas as pd
-import plotly_express as px
+import plotly.express as px
 from scipy.stats import chi2_contingency
 
 # 1
