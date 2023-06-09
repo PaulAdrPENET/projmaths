@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as seaborn
 import pandas as pd
+import plotly_express as px
+from scipy.stats import chi2_contingency
 
 # 1
 seisme = pd.read_csv('seismes_2014.csv')
@@ -48,3 +50,16 @@ seisme_californie_alaska = list()
 seisme_californie_alaska.append(seisme[(seisme['pays'] == 'Alaska') & (seisme["mag"] <= 2)])
 seisme_californie_alaska.append(seisme[(seisme['pays'] == 'California') & (seisme["mag"] <= 2)])
 print(seisme_californie_alaska)
+
+
+# Etude supplémentaire de la relation entre profondeur et magnitude :
+data = seisme[['mag', 'profondeur']]
+fig = px.scatter(data, y='mag', x='profondeur')
+fig.update_layout(title='Magnitude en fonction de la profondeur')
+fig.show()
+
+# Test d'indépendance Khi-deux entre profoneur et magnitude :
+statistique, p_value,tmp1,tmp2, = chi2_contingency(pd.crosstab(data['profondeur'], data['mag']))
+print("Statistique du test Khi-deux : ", statistique)
+print("P_value du test : ", p_value)
+
