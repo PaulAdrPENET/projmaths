@@ -52,7 +52,7 @@ seisme_californie_alaska.append(seisme[(seisme['pays'] == 'California') & (seism
 print(seisme_californie_alaska)
 
 
-# Etude supplémentaire de la relation entre profondeur et magnitude :
+# Étude supplémentaire de la relation entre profondeur et magnitude :
 data = seisme[['mag', 'profondeur']]
 fig = px.scatter(data, y='mag', x='profondeur')
 fig.update_layout(title='Magnitude en fonction de la profondeur')

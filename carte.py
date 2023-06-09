@@ -46,7 +46,7 @@ fig2 = px.density_mapbox(F, lat='lat', lon='lon', z='mag', radius=10,
 fig2.update_layout(mapbox_style="outdoors", mapbox_accesstoken=token)
 fig2.add_trace(px.scatter_mapbox(Fdata3, lat='lat', lon='lon', color='m', size='size',
                                  color_discrete_sequence=palette).data[0])
-#fig2.show()
+fig2.show()
 
 
 # carte des séisme façon Minard
@@ -72,13 +72,13 @@ for i in range(3, 9, 1):
         size = 10+10*(i-5)
     fig3.add_scattergeo(lat=seismes_i['lat'], lon=seismes_i['lon'], marker={"color": palette[i], 'size': size, 'opacity': 0.5}, name=i)
 
-#fig3.show()
+fig3.show()
 
 Fdata4 = seisme[['mag']]
 Fdata4.mag = Fdata4.mag.fillna(0)
 Fdata4['mag'] = Fdata4['mag'].astype(int)
 #seisme_mag_data = seisme[seisme['mag'].isin([3, 4, 5, 6, 7, 8])]
-Fdata4['mag'] = Fdata4['mag'].astype(int)
+#Fdata4['mag'] = Fdata4['mag'].astype(int)
 E = Fdata4.value_counts('mag', ascending=False)
 E = E.astype(int)
 
@@ -90,5 +90,5 @@ fig.show()
 # Nombre de séisme par pays:
 Fdata5 = seisme[['pays', 'mag']]
 fig = px.pie(Fdata5, names='pays')
-fig.show()
+#fig.show()
 
